@@ -1,0 +1,5 @@
+Bonsoir ${USERNAME},
+
+Lorem ipsum.
+
+Cordialement
