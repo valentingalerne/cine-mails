@@ -1,36 +1,24 @@
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from flask import Flask
+from flask_restplus import Resource, Api
+from flask import request
+
 from bo.send_mail import *
 
-ADDRESS = "super.6nez@gmail.com"
-PASSWORD = "P@ssw0rD"
-
-names, emails = get_contacts('./files/address.txt')
-message_template = read_template('./files/template.txt')
+app = Flask(__name__)
+api = Api(app)
 
 
-s = smtplib.SMTP(host='smtp.gmail.com', port=587)
-s.starttls()
-s.login(ADDRESS, PASSWORD)
-
-for name, email in zip(names, emails):
-    msg = MIMEMultipart()
-
-    message = message_template.substitute(USERNAME=name.title())
-
-    print(message)
-
-    msg['From'] = ADDRESS
-    msg['To'] = email
-    msg['Subject'] = "This is TEST"
-
-    msg.attach(MIMEText(message, 'plain'))
-
-    s.send_message(msg)
-    del msg
-
-s.quit()
+# @api.param('message')
+@api.route('/mail')
+class SendMail(Resource):
+    def get(self):
+        try:
+            # message = request.args.get('message')
+            send()
+            return {'message': 'Mail bien envoye'}
+        except:
+            self.api.abort(500, 'Error while trying to send mail')
 
 
-print('Hello world')
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True, port=5000)

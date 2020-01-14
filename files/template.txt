@@ -1,5 +1,5 @@
-Bonsoir ${USERNAME},
+Bonsoir Supercine,
 
-Lorem ipsum.
+Erreur ${NUM_ERROR}
 
 Cordialement
