@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_restplus import Resource, Api
 from flask import request
+from flask_restplus import Resource, Api
 from flask_cors import CORS
 
 from bo.send_mail import *
@@ -11,13 +11,12 @@ api = Api(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-# @api.param('message')
 @api.route('/mail')
 class SendMail(Resource):
-    def get(self):
+    def post(self):
         try:
-            # message = request.args.get('message')
-            send()
+            error = request.json['error']
+            send(error)
             return {'message': 'Mail bien envoye'}
         except:
             self.api.abort(500, 'Error while trying to send mail')

@@ -20,17 +20,13 @@ def get_contacts(filename):
     return names, emails
 
 
-def send():
+def send(error):
     config = configparser.ConfigParser()
     config.read('./address.ini')
 
     ADDRESS = config['data_address']['address']
     PASSWORD = config['data_address']['password']
 
-    # ADDRESS = "super.6nez@gmail.com"
-    # PASSWORD = "P@ssw0rD"
-
-    error = 500
     names, emails = get_contacts('./files/address.txt')
     message_template = read_template('./files/template.txt')
 
