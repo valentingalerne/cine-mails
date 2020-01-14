@@ -1,10 +1,9 @@
 from string import Template
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import smtplib
 import configparser
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 def read_template(filename):
     with open(filename, mode='r', encoding='utf-8') as template_file:
