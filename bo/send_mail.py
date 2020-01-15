@@ -11,13 +11,11 @@ def read_template(filename):
     return Template(template_file_content)
 
 def get_contacts(filename):
-    names = []
     emails = []
     with open(filename, mode='r', encoding='utf-8') as contacts_file:
         for a_contact in contacts_file:
-            names.append(a_contact.split()[0])
-            emails.append(a_contact.split()[1])
-    return names, emails
+            emails.append(a_contact)
+    return emails
 
 
 def send(error, errorName):
@@ -27,18 +25,17 @@ def send(error, errorName):
     ADDRESS = config['data_address']['address']
     PASSWORD = config['data_address']['password']
 
-    names, emails = get_contacts('./files/address.txt')
+    emails = get_contacts('./files/address.txt')
     message_template = read_template('./files/template.txt')
 
     smtp = smtplib.SMTP(host='smtp.gmail.com', port=587)
     smtp.starttls()
     smtp.login(ADDRESS, PASSWORD)
 
-    for name, email in zip(names, emails):
+    for email in emails:
         msg = MIMEMultipart()
 
         message = message_template.substitute(NUM_ERROR=str(error))
-        print(name)
         print(message)
 
         msg['From'] = ADDRESS
