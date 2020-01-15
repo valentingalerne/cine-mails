@@ -14,9 +14,11 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 @api.route('/mail')
 class SendMail(Resource):
     def post(self):
+        '''Route permettant d'envoyer un mail'''
         try:
             error = request.json['error']
-            send(error)
+            errorName = request.json['error_name']
+            send(error, errorName)
             return {'message': 'Mail bien envoye'}
         except:
             self.api.abort(500, 'Error while trying to send mail')

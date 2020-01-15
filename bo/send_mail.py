@@ -20,7 +20,7 @@ def get_contacts(filename):
     return names, emails
 
 
-def send(error):
+def send(error, errorName):
     config = configparser.ConfigParser()
     config.read('./address.ini')
 
@@ -43,7 +43,7 @@ def send(error):
 
         msg['From'] = ADDRESS
         msg['To'] = email
-        msg['Subject'] = "[Erreur] une erreur est survenue"
+        msg['Subject'] = "[Erreur] " + errorName
 
         msg.attach(MIMEText(message, 'plain'))
 

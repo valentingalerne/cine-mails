@@ -1,5 +1,1 @@
-Bonsoir Supercine,
-
 Erreur ${NUM_ERROR}
-
-Cordialement
